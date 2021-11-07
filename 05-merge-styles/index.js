@@ -4,7 +4,17 @@ const fs = require('fs');
 const path = require('path');
 const stylesFolderPath = path.join(__dirname, 'styles');
 const filePath = path.join(__dirname, 'project-dist', 'bundle.css');
-  
+
+
+fs.stat(filePath, function(error) {
+  if (!error) {
+    fs.unlink(filePath, error => {
+      if (error) throw Error;
+    });
+  }
+}); 
+
+function mergeStyles(){
 fs.readdir(stylesFolderPath, {withFileTypes: true}, (error, content) => {
     if (error)
       throw Error;
@@ -22,5 +32,6 @@ fs.readdir(stylesFolderPath, {withFileTypes: true}, (error, content) => {
       }
     }     
   })  
- 
+}
+setTimeout(mergeStyles, 100);
  
